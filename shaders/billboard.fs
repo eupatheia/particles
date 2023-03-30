@@ -6,8 +6,7 @@ in vec4 color;
 uniform sampler2D image;
 out vec4 FragColor;
 
-void main()
-{
+void main() {
   vec4 c = color * texture(image, uv);
   FragColor = c;
 }

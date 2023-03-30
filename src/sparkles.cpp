@@ -20,9 +20,8 @@ struct Particle {
 };
 
 class Viewer : public Window {
-public:
-  Viewer() : Window() {
-  }
+ public:
+  Viewer() : Window() {  }
 
   void setup() {
     setWindowSize(1000, 1000);
@@ -31,12 +30,9 @@ public:
     renderer.blendMode(agl::ADD);
   }
 
-
-  void createConfetti(int size)
-  {
+  void createConfetti(int size) {
     renderer.loadTexture("particle", "../textures/particle.png", 0);
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++) {
       Particle particle;
       particle.color = vec4(agl::randomUnitCube(), 1);
       particle.size = 0.25;
@@ -47,61 +43,58 @@ public:
     }
   }
 
-  void updateConfetti(float dt)
-  {
-    for (int i = 0; i < mParticles.size(); i++)
-    {
+  void updateConfetti(float dt) {
+    for (int i = 0; i < mParticles.size(); i++) {
       Particle particle = mParticles[i];
       particle.pos += particle.vel * dt;
-      if (particle.pos.x < -1 || particle.pos.x > 1) particle.vel.x = -particle.vel.x;
-      if (particle.pos.y < -1 || particle.pos.y > 1) particle.vel.y = -particle.vel.y;
-      if (particle.pos.z < -1 || particle.pos.z > 1) particle.vel.z = -particle.vel.z;
+      if (particle.pos.x < -1 || particle.pos.x > 1) {
+        particle.vel.x = -particle.vel.x;
+      }
+      if (particle.pos.y < -1 || particle.pos.y > 1) {
+        particle.vel.y = -particle.vel.y;
+      }
+      if (particle.pos.z < -1 || particle.pos.z > 1) {
+        particle.vel.z = -particle.vel.z;
+      }
       mParticles[i] = particle;
     }
   }
 
-  void drawConfetti()
-  {
+  void drawConfetti() {
     vec3 cameraPos = renderer.cameraPosition();
-
-    // sort
-    for (int i = 1; i < mParticles.size(); i++)
-    {
+    
+    // sort particles in increasing closeness
+    for (int i = 1; i < mParticles.size(); i++) {
       Particle particle1 = mParticles[i];
       Particle particle2 = mParticles[i - 1];
       float dSqr1 = length2(particle1.pos - cameraPos);
       float dSqr2 = length2(particle2.pos - cameraPos);
-      if (dSqr2 < dSqr1)
-      {
+      if (dSqr2 < dSqr1) {
         mParticles[i] = particle2;
         mParticles[i - 1] = particle1;
       }
     }
 
-    // draw
+    // draw particles from farthest to nearest (back to front)
     renderer.texture("image", "particle");
-    for (int i = 0; i < mParticles.size(); i++)
-    {
+    for (int i = 0; i < mParticles.size(); i++) {
       Particle particle = mParticles[i];
-      renderer.sprite(particle.pos, particle.color, particle.size, particle.rot);
+      renderer.sprite(particle.pos, particle.color, particle.size,
+          particle.rot);
     }
   }
 
-  void mouseMotion(int x, int y, int dx, int dy) {
-  }
+  void mouseMotion(int x, int y, int dx, int dy) {  }
 
-  void mouseDown(int button, int mods) {
-  }
+  void mouseDown(int button, int mods) {  }
 
-  void mouseUp(int button, int mods) {
-  }
+  void mouseUp(int button, int mods) {  }
 
   void scroll(float dx, float dy) {
     eyePos.x += dy;
   }
 
-  void keyUp(int key, int mods) {
-  }
+  void keyUp(int key, int mods) {  }
 
   void draw() {
     renderer.beginShader("sprite");
@@ -115,17 +108,14 @@ public:
     renderer.endShader();
   }
 
-protected:
-
+ protected:
   vec3 eyePos = vec3(10, 0, 0);
   vec3 lookPos = vec3(0, 0, 0);
   vec3 up = vec3(0, 1, 0);
-
   std::vector<Particle> mParticles;
 };
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
   Viewer viewer;
   viewer.run();
   return 0;

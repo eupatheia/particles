@@ -1,3 +1,10 @@
+/* billboard-animated.vs
+ * Vertex shader for sprite sheet effect (animated billboard)
+ * Base code: Bryn Mawr College, alinen, 2020
+ * Modified by JL
+ * 29 March 2023
+ */
+
 #version 400
 
 layout (location = 0) in vec3 vPosition;
@@ -15,10 +22,15 @@ uniform int Cols;
 out vec4 color;
 out vec2 uv;
 
-void main()
-{
+void main() {
   color = Color;
-  uv = vPosition.xy; // todo: compute UV coordinates based on Frame
+  // calculate position (row, col) on sprite sheet
+  // NOTE: uv coords in this system seem to have (0,0) in top left instead of
+  //   bottom left, so compensate by reversing rows
+  int row = (Rows - 1) - (Frame / Cols);
+  int col = Frame % Cols;
+  // map (row, col) to texture coords (u, v), where u,v in [0, 1]
+  uv = (vPosition.xy + vec2(col, row)) / vec2(Cols, Rows);
   
   vec3 z = normalize(CameraPos - Offset);
   vec3 x = normalize(cross(vec3(0,1,0), z));
