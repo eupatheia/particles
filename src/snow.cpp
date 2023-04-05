@@ -85,8 +85,6 @@ class Viewer : public Window {
   }
 
   void drawParticles() {
-    vec3 cameraPos = renderer.cameraPosition();
-
     // no need to sort by depth b/c all particles at z=0
 
     // draw particles from farthest to nearest (back to front)
