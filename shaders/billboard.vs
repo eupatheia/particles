@@ -16,17 +16,16 @@ void main() {
   color = Color;
   uv = vPosition.xy;
 
-  // calculate coordinate axes (i.e. rotations)
+  // calculate rotation matrix
   vec3 z = normalize(CameraPos - Offset);
   vec3 x = normalize(cross(vec3(0,1,0), z));
   vec3 y = normalize(cross(z, x));
   mat3 R = mat3(x, y, z);
 
-  // rotate each direction to convert to world space
+  // calculate current transform based on rotation
   x = vec3(cos(Rot), -sin(Rot), 0);
   y = vec3(sin(Rot), cos(Rot), 0);
   z = vec3(0,0,1);
-  // calculate model transform (model/local to world space)
   mat3 M = mat3(x, y, z);
 
   vec3 eyePos = M * R * Size * (vPosition - vec3(0.5, 0.5, 0.0)) + Offset;
