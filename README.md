@@ -2,7 +2,7 @@
 
 Implements particle demos
 
-TODO: Add a representative image for your project here
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/75283980/230204121-3c7a005e-e2c2-4089-ad1e-6427d27caebd.png">
 
 ## How to build
 
@@ -49,9 +49,26 @@ particles/build $ ../bin/explosion
 
 ## Demo of basic features
 
-TODO: Document the main demos your viewer (shaders + models)
+### Sparkle-Trail
+
+![sparkle-trail](https://user-images.githubusercontent.com/75283980/230204588-9c4e109e-0224-4f6c-b42b-8e811599824f.gif)
+
+### Explosion
+
+![explosion](https://user-images.githubusercontent.com/75283980/230204653-1d73dcab-4012-4908-8ec8-e827621ad42c.gif)
+
+### Axis Billboard
+
+![billboard-axis](https://user-images.githubusercontent.com/75283980/230205241-4e1b04ee-3236-4efc-9213-3e6c1af66ba8.gif)
+
+---
 
 ## Unique features 
 
-TODO: Show the unique features you made
+### Smoke
 
+![smoke](https://user-images.githubusercontent.com/75283980/230205503-cddebbf1-c973-44a6-b882-f5e33af5125a.gif)
+
+### Snow
+
+![snow](https://user-images.githubusercontent.com/75283980/230205643-2215f666-5069-4e87-a984-3bd31d734b1e.gif)
